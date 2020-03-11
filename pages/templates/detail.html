@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card-group container" style='width:70%'>
+        <div class="card col-3 container-fluid">
+            {% load static %}  
+            <img class="img-fluid" src="{{ picture.url }}" alt="Card image cap" style='height: 250px;'>
+        </div>
+        <div class="card col-9 container">
+            <div class='container'>
+        <br> <br>
+                <h6>Catagorie: {{catagorie}}</h6>
+                <h1>{{ name }}</h1>
+                <h5>Date: {{date}}</h5>
+                <h5>Location: {{location}}</h5>
+                <h6>Price: {{ price}}<h6>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class='container' style='width:70%'>
+        <h3>About this event</h3>
+        <div class='container p-5'>{{ description }}</div>
+        <br><br>
+        <h3>Tickets</h3>
+        <form class="form-inline" action="{% url 'payment' id_event=id%}" medthod="POST">
+            <label for='selection' class="mr-5 p-5">Normal Tickets</label>
+            {% if  amount > 0 %}
+            <select name= "number" class="custom-select" style='margin-left:35%; !important'>
+                {%  for i in range_amount %}
+                    {% if i != 0 %}
+                    <option value= "{{ i }}">{{ i }}</option>
+                    {% endif %} 
+                {% endfor %}
+            </select>
+            <button class="btn btn-dark ml-5" type="submit">Buy Tickets</button>
+            {% else %}
+            <div class="alert alert-danger float-right" role="alert" style='margin-left:300px'>
+                <strong>Sold Out</strong>
+            </div>
+            {% endif %}
+            
+        </form>
+    </div>
+{% endblock content %}

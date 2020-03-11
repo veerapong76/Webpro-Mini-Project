@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class='container mb-5'>
+    {% if event %}
+    <h1>{{head}} {{tail}}</h1><a href="{% url 'all_event' %}"><p class='float-right'>{% if catagorie %} view all {% endif %} </p></a>
+    {% for ev in event %}
+                <a href="{% url 'detail' id_event=ev.id %}">
+                <div class="card-body col-2 m-2 mt-2 container-fluid" style="display: inline-block !important;">
+                    {% load static %}   
+                    <img class="img" src="{{ ev.picture.url }}" alt="{{ ev.picture.name }}" width='150px' height='200px'>
+                    <div class="card-text">          
+                        {{ ev.date }}<br>
+                        <h4>{{ ev.name }}</h4>
+                        {{ ev.location }}
+                    </div>
+                </div>
+                </a>
+    {% endfor %}
+    </div>
+    {% endif %}
+    {% if catagorie %}
+    <div class='container'>
+        <h1>Catagories</h1><a href="{% url 'all_catagorie' %}"><p class='float-right'>{% if event %} view all {% endif %}</p></a>
+        {% for c in catagorie %}
+        <a href="{% url 'search_catagorie' name=c.name %}">
+        <div class="m-2 col-2" style="display: inline-block !important;">
+            <div class="alert alert-secondary p-5" role="alert"><strong>{{ c.name }}</strong></div>
+        </div>
+        </a>
+        {% endfor %}
+    </div> 
+    {% endif %}
+{% endblock content %}
+{% block footer %}
+    Footer of classroom list page!!!
+{% endblock %}

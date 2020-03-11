@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Base</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
+
+    <style>
+    header[role="banner"] {
+        #logo-main {
+            display: block;
+            margin: 20px auto;
+        }
+        }
+
+    
+        /* Sticky footer styles
+        -------------------------------------------------- */
+        html {
+        position: relative;
+        min-height: 100%;
+        }
+        body {
+        /* Margin bottom by footer height */
+        margin-bottom: 60px;
+        }
+        .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        /* Set the fixed height of the footer here */
+        height: 60px;
+        line-height: 60px; /* Vertically center the text there */
+        background-color: #f5f5f5;
+        }
+
+       
+
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'homepage' %}">E-Ticket</a>
+        <div class="d-inline-block">
+            <form class="form-inline" action="{% url 'search_event'%}" medthod="POST" style ='float: left; padding: 5px;'>
+                <input class="form-control mr-sm-2" type="text"  name='txt_search' value=''>
+                <button class="btn btn-outline-success mr-sm-4" type="submit">Search</button>
+            </form>
+            {% if user.username %} 
+            <form class="form-inline " action="{% url 'logout' %}" medthod="POST" style ='float: left; padding: 5px;'>
+                <button class="btn btn-dark mr-sm-2" type="submit">Logout </button>
+            </form> 
+            {% else %} 
+            <form class="form-inline " action="{% url 'logout' %}" medthod="POST" style ='float: left; padding: 5px;'>
+                <button class="btn btn-dark mr-sm-2" type="submit">Login </button>
+            </form> 
+            {% endif %}
+            {% if not user.username %}
+            <form class="form-inline " action="{% url 'register' %}" medthod="POST" style ='float: left; padding: 5px;'>
+                <button class="btn btn-light mr-sm-2" type="submit">Sign Up</button>
+            </form>
+            {% endif %}
+            
+            {% if user.username%}
+            <form class="form-inline " action="{% url 'profile' id_user=user.id%}" medthod="POST" style ='float: left; padding: 5px;'>
+                <button class="btn btn-light mr-sm-2" type="submit">Profile</button>
+            </form>
+            {% endif %}
+            {% if user.username%}
+            <form class="form-inline " action="/admin" medthod="POST" style ='float: left; padding: 5px;'>
+                <button class="btn btn-light mr-sm-2" type="submit">Management</button>
+            </form>
+            {% endif %}
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h3>Profile</h3>
+            <div class="container p-3">
+            <label>Id: {{ user.id }}</label><br>
+            <label>Username: {{ user.username }}</label><br>
+            <label>Firstname: {{ user.first_name}}</label><br>
+            <label>Lastname: {{ user.last_name}}</label><br>
+            <label>Email: {{ user.email }}</label><br>
+            <a href="{% url 'edit_profile' id_user=user.id%}"><div class='btn btn-secondary'>แก้ไขข้อมูล</div></a>
+        </div>
+    </div>
+    <div class="container">
+        <h3>Ticket</h3>
+            <div class="container p-3">
+            <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">รหัสตั๋ว</th>
+                    <th scope="col">รหัสอีเวนต์</th>
+                    <th scope="col">ชื่ออีเวนต์</th>
+                    <th scope="col">วันที่จัด</th>
+                    <th scope="col">รายละเอียด</th>
+                    <th scope="col">วันที่ซื้อ<th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tk in ticket %}
+                <tr>
+                    <td>{{ tk.ticket_id }}</td>
+                    <td>{{ tk.event_id }}</td>
+                    <td>{{ tk.event_name }}</td>
+                    <td>{{ tk.event_date }}</td>
+                    <td>{{ tk.description }}</td>
+                    <td>{{ tk.purchased_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock content %}

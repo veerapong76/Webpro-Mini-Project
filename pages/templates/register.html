@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        {% if user.id %}
+            <h1>แก้ไขข้อมูล</h1>
+        {% else %}
+            <h1>สมัครสมาชิก</h1>
+        {% endif %}
+        
+        <br/>
+        {% if user.id %}
+            <form method="POST" action="{% url 'edit_profile' id_user=user.id%}">
+        {% else %}
+            <form method="POST" action="{% url 'register' %}">
+        {% endif %}
+            {% csrf_token %}
+            <label>Username: </label>
+            <input class='form-control' value='{{ user.username }}' name='username'>
+            <label>Password: </label>
+            <input class='form-control' value='{{ user.password }}' name='password' type='password'>
+            <label>Firstname: </label>
+            <input class='form-control' value='{{ user.first_name }}' name='firstname'>
+            <label>Lastname: </label>
+            <input class='form-control' value='{{ user.last_name }}' name='lastname'>
+            <label>Email: </label>
+            <input class='form-control' value='{{ user.email }}' name='email'><br>
+            
+            {% if user.id %}
+                <button class='btn btn-dark' type='submit'>แก้ไขข้อมูล</button>
+            {% else %}
+                <button class='btn btn-dark' type='submit'>สมัครสมาชิก</button>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Footer of create new student page!!!
+{% endblock %}

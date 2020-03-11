@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class='container'>
+        <div class="row">
+            <div class='col-5'>
+            <h3 class='pb-2' name='a'>{{name}} Payment</h3>
+            personal information
+            {% if user.id %}
+            <form class='form-inline' method='POST' action="{% url 'create_ticket' user_id=user.id number=number %}">
+            {% else %}
+            <form class='form-inline' method='POST' action="{% url 'payment_regis' number=number %}">
+            {% endif %}
+            {% csrf_token %}
+                <label><h5>Username</h5></label><br>
+                <input class='form-control' style='width:100%' name='username' value='{{ user.username}}'><br>
+                <label><h5>Email</h5></label><br>
+                <input class='form-control' style='width:100%' name='email' value='{{ user.email}}'><br>
+                <label style='margin-right:40%'><h5>Firstname</h5></label> <label><h5>Lastname</h5></label><br>
+                <input class='form-control' style='margin-right:10%;width:45%;' name='firstname' value='{{user.first_name}}'>
+                <input class='form-control' style='width:45%' name='lastname' value='{{user.last_name}}'><br>
+                <label><h5>Password</h5></label><br>
+                <input type='password' class='form-control' style='width:100%' name='password' value='{{user.password}}'>
+                <label class='mt-5 mb-3' style='margin-right:30%'><h3>Payment Method</h3></label><br>
+                <button class='btn btn-dark p-3 mr-4' name='id' value='{{ id }}' >Credit/Debit Card</button>
+                <button class='btn btn-dark p-3 mr-4'  name='id' value='{{ id }}'>Paypal</button>
+                <button class='btn btn-dark p-3 '  name='id' value='{{ id }}'>Promtpay</button>
+            </form>
+            </div>
+            <div class='col-5 container' >
+                <div class='border border-dark p-2'>
+                    <center><label class='bg-light p-2'>Order Sumary #{{ ticket_id }}</label></center>
+                    <label>Date: {{ date }} </label>
+                    <hr>
+                    <label><b>Item</b></label><br>
+                    <label>Nomal Ticket</label><br>
+                    <label><b>Toral</b></label><br>
+                    <label>{{ price }} x {{ number }} = {{ total }}</label><br>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
